@@ -1,132 +1,114 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node
+typedef struct Node
 {
     int data;
     struct Node *next;
-};
-
-/* Inserts a new node from the head of linked list */
-void push(struct Node **pointerToHeadPtr, int val)
+} Node;
+/* Deletes the node specified with index n */
+void deleteNode(Node **headPtr, int key)
 {
-    /* Initialize the new node to be added */
-    struct Node *aux = (struct Node *)malloc(sizeof(struct Node));
-    /* Assign value to new node */
-    aux->data = val;
-    /* Make new node next pointer as head pointer */
-    aux->next = *pointerToHeadPtr;
-    /* Make head pointer point to the new node data */
-    (*pointerToHeadPtr) = aux;
-}
-/* Inserts a new node from any position */
-void insert(struct Node **pointerToHeadPtr, int n, int val)
-{
-    struct Node *new = (struct Node *)malloc(sizeof(struct Node));
-    new->data = val;  // new node to hold the val
-    new->next = NULL; // initially points to NULL
-
-    if (n == 1) // If data is inserted from the head
+    Node *prev = (Node *)malloc(sizeof(Node));
+    Node *temp = (Node *)malloc(sizeof(Node));
+    temp = (*headPtr);
+    prev = (*headPtr);
+    if (temp->data == key) // if head is to be deleted
     {
-        new->next = *pointerToHeadPtr;
-        *pointerToHeadPtr = new;
+        (*headPtr) = temp->next;
+        return;
+    }
+    while (temp != NULL)
+    {
+        temp = temp->next;     // move temp ptr by 1 node
+        if (temp->data == key) // if data pointed by temp ptr is to be deleted
+        {
+            if (temp->next == NULL) // if tail is to be deleted
+            {
+                prev->next = NULL;
+                return;
+            }
+            prev->next = temp->next; // assign previous node to next of target node
+            return;
+        }
+        prev = prev->next;
+    }
+}
+
+void addAtIndex(Node **headPtr, int value, int n)
+{
+    Node *new = (Node *)malloc(sizeof(Node));
+    new->data = value;
+    new->next = NULL;
+
+    Node *temp = (Node *)malloc(sizeof(Node)); // ptr to move head ptr
+    temp = *headPtr;
+
+    // If node is added at the head, move next of head ptr to address of new node
+    if (n == 1)
+    {
+        new->next = (*headPtr);
+        (*headPtr) = new;
+        return;
+    }
+    /* Iterate over linked list until (n-1). node */
+    for (int i = 0; i < n - 2; i++)
+    {
+        temp = temp->next;
+    }
+    if (temp->next != NULL)
+    {
+        new->next = temp->next; // Assign next of new node to address of node at n.index
+        temp->next = new;       // Assign next of previos node to address of new node
     }
     else
     {
-        struct Node *tempHead = (struct Node *)malloc(sizeof(struct Node));
-        tempHead = *pointerToHeadPtr; // It will be used to track the n. index
-        for (int i = 0; i < n - 2; i++)
-        {
-            tempHead = tempHead->next; // Assign node ptr to ptr to the next node to traverse the list
-        }
-        if (tempHead->next == NULL)
-        {
-            new->next = NULL;
-            tempHead->next = new;
-        }
-        else
-        {
-            new->next = tempHead->next;
-            tempHead->next = new;
-        }
+        temp->next = new; // Assign next of previos node to address of new node
+        new->next = NULL;
     }
 }
-/* Prints the linked list */
-void displayLinkedList(struct Node *head)
+void display(Node **headPtr)
 {
-    struct Node *aux = head;
-    while (aux != NULL)
+    Node *curr = (Node *)malloc(sizeof(Node));
+    curr = (*headPtr);
+    while (curr != NULL)
     {
-        if (aux->next == NULL)
+        if (curr->next == NULL)
         {
-            printf("%d\n", aux->data);
+            printf("%d\n", curr->data);
         }
         else
         {
-            printf("%d -> ", aux->data);
+            printf("%d -> ", curr->data);
         }
-
-        aux = aux->next;
+        curr = curr->next;
     }
-    printf("\n");
+    free(curr);
 }
-
 int main()
 {
-    struct Node *head = NULL;                          // head pointer to node
-    struct Node *temp;                                 // pointer to node
-    temp = (struct Node *)malloc(sizeof(struct Node)); // Allocate enough memory for temp pointer to node
-    (*temp).data = 42;                                 // *temp points to a node with data=42
-    (*temp).next = NULL;                               // first and last node points to NULL
-    head = temp;                                       // head pointer holds the address of first node i.e the value of temp pointer
+    Node *head = (Node *)malloc(sizeof(Node));
+    head->data = 1881;
+    head->next = NULL;
+    // display(&head); // 1881
+    addAtIndex(&head, 23, 2);
+    // display(&head); // 1881 23
+    addAtIndex(&head, 19, 1);
+    // display(&head); // 19 1881 23
+    addAtIndex(&head, 1923, 4);
+    display(&head); // 19 1881 23 1923
+    addAtIndex(&head, 42, 2);
+    display(&head); // 19 42 1881 23 1923
 
-    /* Simply print the linked list */
-    printf("\nInitialized linked list:\n");
-    printf("------------------------\n");
-    displayLinkedList(head);
+    deleteNode(&head, 42); // 19 1881 23 1923
+    display(&head);
 
-    /* Insert new node from the head */
-    printf("Inserting new node from the head:\n");
-    printf("---------------------------------\n");
-    int value, n;
-    printf("Number of values to be inserted from head: ");
-    scanf("%d", &n);
-    for (int i = 0; i < n; i++)
-    {
-        printf("Data: ");
-        scanf("%d", &value);
-        push(&head, value); // by reference
-        displayLinkedList(head);
-    }
+    deleteNode(&head, 1923); // 19 1881 23
+    display(&head);
 
-    /* Insert new node from some index between head and tail */
-    printf("Inserting new node from n. position:\n");
-    printf("------------------------------------\n");
-    insert(&head, 2, 818); //  420 -> 818 -> 69 -> 33 -> 42
-    displayLinkedList(head);
-    insert(&head, 1, 64); // 64 -> 420 -> 818 -> 69 -> 33 -> 42
-    displayLinkedList(head);
-    insert(&head, 5, 1); // 64 -> 420 -> 818 -> 69 -> 1 -> 33 -> 42
-    displayLinkedList(head);
+    deleteNode(&head, 19); // 1881 23
+    display(&head);
 
-    /* Insert new node from the tail */
-    printf("Inserting new node from the tail:\n");
-    printf("---------------------------------\n");
-    insert(&head, 8, 0); // 64 -> 420 -> 818 -> 69 -> 1 -> 33 -> 42 -> 0
-    displayLinkedList(head);
-
-    /* Delete a node and print the linked list */
-    printf("Deleting a node:\n");
-    printf("----------------\n");
-    // Delete a node between head and tail
-    deleteNode(&head, 818);
-    displayLinkedList(head);
-    // Delete the head node
-    printf("Deleting the head node:\n");
-    printf("-----------------------\n");
-    deleteNode(&head, head->data);
-    displayLinkedList(head);
     free(head);
-
     return 0;
 }
