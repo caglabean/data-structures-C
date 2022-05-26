@@ -1,2 +1,6 @@
 linked_list/intro
 .vscode/settings.json
+
+
+linked_list/deleteNode
+linked_list/indexAdd
