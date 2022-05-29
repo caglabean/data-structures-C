@@ -5,3 +5,4 @@ linked_list/intro
 linked_list/deleteNode
 linked_list/indexAdd
 stacks/arr_imp
+stacks/ll_imp.c
