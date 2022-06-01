@@ -39,24 +39,24 @@ void printList(node_t *headPtr)
     }
 }
 
-void deleteNode(node_t **headPtr, int target)
+void insertNode(node_t **headPtr, int num, int index)
 {
-    node_t *temp = (node_t *)malloc(sizeof(node_t));
-    node_t *prev = (node_t *)malloc(sizeof(node_t));
+    node_t *new = (node_t *)malloc(sizeof(node_t));
+    node_t *temp = (node_t *)malloc(sizeof(node_t)); // we don't want actual root to change so we use temp ptr
     temp = *headPtr;
-
-    while (temp->data != target && temp != NULL)
+    new->data = num;
+    for (int i = 0; i < index - 1; i++)
     {
-        prev = temp;
         temp = temp->next;
     }
     if (temp->next == NULL)
     {
-        prev->next = NULL;
+        new->next = NULL;
+        temp->next = new;
         return;
     }
-    prev->next = temp->next;
-    free(temp);
+    new->next = temp->next;
+    temp->next = new;
 }
 
 int main()
@@ -73,9 +73,8 @@ int main()
     middle->next = last;
     last->data = 87;
     last->next = NULL;
-
     printList(root);
-    deleteNode(&root, 43);
+    insertNode(&root, 5, 2);
     printList(root);
 
     free(root);
