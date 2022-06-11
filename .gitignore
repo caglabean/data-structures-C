@@ -6,3 +6,9 @@ linked_list/deleteNode
 linked_list/indexAdd
 stacks/arr_imp
 stacks/ll_imp.c
+linked_list/deleteNode.c
+linked_list/.gitignore
+linked_list/insertNode
+linked_list/deleteNode.c
+
+linked_list/linked_lists.c
