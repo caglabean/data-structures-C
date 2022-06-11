@@ -12,3 +12,6 @@ linked_list/insertNode
 linked_list/deleteNode.c
 
 linked_list/linked_lists.c
+linked_list/.gitignore
+.gitignore
+linked_list/linked_lists.c
