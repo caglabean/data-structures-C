@@ -109,3 +109,101 @@ void addAtIndex(node **root, int data, int index)
     new->next = temp->next;
     temp->next = new;
 }
+void deleteAtHead(node **root)
+{
+    node *temp = malloc(sizeof(node));
+    temp = *root;
+    if (*root == NULL)
+    {
+        printf("List is empty!\n");
+    }
+    else
+    {
+        (*root) = (*root)->next;
+        free(temp);
+        temp = NULL;
+    }
+}
+
+void deleteAtTail(node **root)
+{
+    node *temp1 = malloc(sizeof(node));
+    node *temp2 = malloc(sizeof(node));
+
+    temp2 = *root;
+
+    while (temp2->next != NULL)
+    {
+        temp1 = temp2;       // hold the second last node
+        temp2 = temp2->next; // hold the last node
+    }
+
+    temp1->next = NULL; // make next of second last node NULL
+    free(temp2);        // get rid of space allocated for last node
+}
+
+void deleteAtIndex(node **root, int index)
+{
+    node *temp1 = malloc(sizeof(node));
+    node *temp2 = malloc(sizeof(node));
+
+    temp1 = *root;
+
+    if (index == 1)
+    {
+        (*root) = (*root)->next;
+        free(temp1);
+        temp1 = NULL;
+        return;
+    }
+    // index--;
+    while (index != 1)
+    {
+        temp2 = temp1;
+        temp1 = temp1->next;
+        index--;
+    }
+    if (temp1->next == NULL)
+    {
+        temp2->next = NULL;
+        free(temp1);
+        temp1 = NULL;
+    }
+    else
+    {
+        temp2->next = temp1->next;
+        free(temp1);
+        temp1 = NULL;
+    }
+}
+
+void reverseList(node **root)
+{
+    node *temp = malloc(sizeof(node));
+    node *temp2 = malloc(sizeof(node));
+
+    temp = NULL;
+    temp2 = NULL;
+
+    while ((*root) != NULL)
+    {
+        temp2 = (*root)->next;
+        (*root)->next = temp;
+        temp = (*root);
+        (*root) = temp2;
+    }
+    (*root) = temp;
+}
+
+void deleteList(node **root)
+{
+    node *temp = malloc(sizeof(node));
+    temp = *root;
+
+    while (temp != NULL)
+    {
+        temp = temp->next;
+        free(*root);
+        *root = temp;
+    }
+}

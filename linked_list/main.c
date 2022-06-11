@@ -22,7 +22,7 @@ int main()
     printData(head);
 
     /* Add a new node at the end of the linked list */
-    printf("Add node at the end, pass by val: ");
+    printf("\nAdd node at the end, pass by val: ");
     addAtEnd(head, 42); // pass by value
     printData(head);
 
@@ -47,8 +47,33 @@ int main()
     addAtIndex(&head, 1966, 1);
     printData(head);
 
-    free(head);
-    free(current);
+    printf("\nDelete at head, by ref: ");
+    deleteAtHead(&head);
+    printData(head);
+
+    printf("Delete at tail, by ref: ");
+    deleteAtTail(&head);
+    printData(head);
+
+    printf("Delete at index 5, by ref: ");
+    deleteAtIndex(&head, 5);
+    printData(head);
+
+    printf("Delete at index 6, by ref: ");
+    deleteAtIndex(&head, 6);
+    printData(head);
+
+    printf("Delete at index 1, by ref: ");
+    deleteAtIndex(&head, 1);
+    printData(head);
+
+    printf("\nReverse the list, by ref: ");
+    reverseList(&head);
+    printData(head);
+
+    printf("\nDelete whole list, by ref: ");
+    deleteList(&head);
+    printData(head);
 
     return 0;
 }

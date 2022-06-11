@@ -19,4 +19,14 @@ void addAtHeadByRef(node **root, int data);
 
 void addAtIndex(node **root, int data, int index);
 
+void deleteAtHead(node **root);
+
+void deleteAtTail(node **root);
+
+void deleteAtIndex(node **root, int index);
+
+void reverseList(node **root);
+
+void deleteList(node **root);
+
 #endif /* _UTIL_H_ */
