@@ -22,3 +22,7 @@ stacks/arr_imp.c
 stacks/ll_imp
 stacks/ll_imp
 stacks/main.c
+stacks-arr_imp/main.c
+stacks-arr_imp/makefile
+stacks-arr_imp/utils.c
+stacks-arr_imp/utils.h
