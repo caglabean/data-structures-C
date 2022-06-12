@@ -1,1 +1,1 @@
-# Data Structures & Algorithms Practice with C
+# Data Structures Practice with C
