@@ -18,3 +18,5 @@ linked_list/linked_lists.c
 .idea
 .vscode
 test
+stacks/arr_imp.c
+stacks/ll_imp
