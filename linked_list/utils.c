@@ -196,6 +196,23 @@ void reverseList(node **root)
     (*root) = prev;
 }
 
+int countNodesRecursive(node **root)
+{
+    int length = 0;
+    node *temp = malloc(sizeof(node));
+    temp = (*root);
+    if (temp == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        temp = temp->next;
+        length++;
+    }
+    return (length + countNodesRecursive(&temp));
+}
+
 void deleteList(node **root)
 {
     node *temp = malloc(sizeof(node));

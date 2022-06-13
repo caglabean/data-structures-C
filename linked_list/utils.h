@@ -27,6 +27,8 @@ void deleteAtIndex(node **root, int index);
 
 void reverseList(node **root);
 
+int countNodesRecursive(node **root);
+
 void deleteList(node **root);
 
 #endif /* _UTIL_H_ */

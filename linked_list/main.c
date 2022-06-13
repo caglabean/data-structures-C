@@ -71,9 +71,16 @@ int main()
     reverseList(&head);
     printData(head);
 
+    node *temp = malloc(sizeof(node));
+    temp = head;
+    printf("Number of nodes, using recursive: ");
+    printf("%d\n", countNodesRecursive(&head));
+
     printf("\nDelete whole list, by ref: ");
     deleteList(&head);
     printData(head);
+    printf("Number of nodes, using recursive: ");
+    printf("%d\n", countNodesRecursive(&head));
 
     return 0;
 }
