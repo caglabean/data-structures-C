@@ -179,20 +179,21 @@ void deleteAtIndex(node **root, int index)
 
 void reverseList(node **root)
 {
-    node *temp = malloc(sizeof(node));
-    node *temp2 = malloc(sizeof(node));
+    node *prev = malloc(sizeof(node));
+    node *current = malloc(sizeof(node));
+    node *next = malloc(sizeof(node));
+    prev = NULL;
+    next = NULL;
+    current = (*root);
 
-    temp = NULL;
-    temp2 = NULL;
-
-    while ((*root) != NULL)
+    while (current != NULL)
     {
-        temp2 = (*root)->next;
-        (*root)->next = temp;
-        temp = (*root);
-        (*root) = temp2;
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
     }
-    (*root) = temp;
+    (*root) = prev;
 }
 
 void deleteList(node **root)
